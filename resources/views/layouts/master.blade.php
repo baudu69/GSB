@@ -14,11 +14,26 @@
     <div class="container-fluid">
         <ul class="navbar-nav navbar-left">
             <a class="navbar-brand" href="{{url('/')}}">GSB</a>
+            @if (Session::get('id') != null)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/lister')}}">Lister</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('#')}}">Ajouter</a>
+                </li>
+            @endif
         </ul>
+
         <ul class="nav navbar-nav navbar-right">
+            @if (Session::get('id') == null)
             <li class="nav-item">
-                <a class="nav-link" href="{{url('signUp')}}">Connexion</a>
+                <a class="nav-link" href="{{url('signIn')}}">Connexion</a>
             </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('signOut')}}">Deconnexion</a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

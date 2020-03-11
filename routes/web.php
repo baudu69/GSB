@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('vues.accueil');
 });
+
+Route::get('/signIn', function () {
+    return view('vues.connexion');
+});
+
+Route::post('/signIn', 'VisiteurController@signIn');
+Route::get('/signOut', 'VisiteurController@signOut');
+
+Route::get('/lister', function () {
+    return view('vues.listePraticien');
+});
