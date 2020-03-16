@@ -24,6 +24,6 @@ Route::get('/signIn', function () {
 Route::post('/signIn', 'VisiteurController@signIn');
 Route::get('/signOut', 'VisiteurController@signOut');
 
-Route::get('/lister', function () {
-    return view('vues.listePraticien');
-});
+Route::get('/lister', 'SpecialiteController@getAllSpecialites')->middleware('connected');
+
+Route::get('/listerSpecialite', 'SpecialiteController@listerSpecialiteByPraticien')->middleware('connected');

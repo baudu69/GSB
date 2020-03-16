@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Session;
 
 class VisiteurController extends Controller
 {
+    /**
+     * Permet d'authentifier un utilisateur
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function signIn(Request $request) {
         try {
             $identifiant = $request->input('identifiant');
@@ -33,6 +38,40 @@ class VisiteurController extends Controller
             {
                 $erreur = 'Identifiant incorrect';
                 return view('vues.connexion', compact('erreur'));
+            }
+        }
+        catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues.error', compact('erreur'));
+        }
+    }
+
+    /**
+     * JSONAPI: Permet d'authentifier un utilisateur
+     * @param Request $request
+     * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     */
+    public function jsonApiSignIn(Request $request) {
+        try {
+            $json = file_get_contents('php://input');
+            $UtilisateursJson = json_decode($json);
+            $id = $UtilisateursJson->id;
+            $mdp = $UtilisateursJson->mdp;
+            $user = new ServiceVisiteur();
+            $unUser = $user->signIn($id);
+            if ($unUser != null) {
+                if (Hash::check($mdp, $unUser->pwd_visiteur))
+                {
+                    return json_encode('ok');
+                }
+                else
+                {
+                    return json_encode('Mot de passe incorrect');
+                }
+            }
+            else
+            {
+                return json_encode('Identifiant incorrect');
             }
         }
         catch (MonException $e) {

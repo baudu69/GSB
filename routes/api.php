@@ -19,3 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/listePraticien', 'PraticienController@apiGetAllPraticiens');
 Route::post('/listePraticien', 'PraticienController@apiGetPraticienByNom');
+
+Route::get('/delSpecialitePraticien', 'SpecialiteController@delSpecialitePraticien');
+Route::get('/addSpecialitePraticien', 'SpecialiteController@addSpecialitePraticien');
+
+Route::prefix('/json')->group(function () {
+    Route::post('/signIn', 'VisiteurController@jsonApiSignIn');
+    Route::get('/listePraticien', 'PraticienController@jsonApiGetAllPraticien');
+    Route::get('/listePraticienNom', 'PraticienController@jsonApiGetPraticienByNom');
+    Route::get('/listePraticienNomType', 'PraticienController@jsonApiGetPraticienByNomType');
+    Route::get('/listeTypes', 'PraticienController@jsonApiGetAllTypes');
+});

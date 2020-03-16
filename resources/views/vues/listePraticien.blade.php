@@ -5,12 +5,17 @@
         <h1>Recherche d'un praticien</h1>
         <div class="main">
             <div class="form-group">
-                <label for="nom">Nom du praticien : </label>
+                <label for="nom">Filtrer par nom : </label>
                 <input type="text" name="nom" id="nom" />
             </div>
             <div class="form-group">
-                <label for="specialite">Specialite du praticien : </label>
-                <input type="text" name="specialite" id="specialite" />
+                <label for="specialite">Filtrer par specialite : </label>
+                <select name="specialite" id="specialite">
+                    <option value="" selected>---</option>
+                    @foreach($lesSpecialites as $uneSpecialite)
+                        <option value="{{$uneSpecialite->id_specialite}}">{{$uneSpecialite->lib_specialite}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="main">
@@ -46,10 +51,19 @@
             $("#nom").keyup(function () {
                 $("#chargement").toggle(100);
                 const nom = $("#nom").val();
-                $("#contenu").load('{{url('/api/listePraticien')}}', {nom: nom}, function () {
+                const specialite = $("#specialite").val();
+                $("#contenu").load('{{url('/api/listePraticien')}}', {nom: nom, specialite: specialite}, function () {
                     $("#chargement").toggle(100);
                 });
             });
+            $("#specialite").change(function () {
+                $("#chargement").toggle(100);
+                const nom = $("#nom").val();
+                const specialite = $("#specialite").val();
+                $("#contenu").load('{{url('/api/listePraticien')}}', {nom: nom, specialite: specialite}, function () {
+                    $("#chargement").toggle(100);
+                });
+            })
         });
     </script>
 @endsection
