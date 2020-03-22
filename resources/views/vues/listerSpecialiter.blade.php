@@ -36,7 +36,7 @@
         function delLigne(idSpecialite, idPraticien, libSpecialite) {
             if (confirm('Voulez-vous vraiment supprimer cette specialite ?')) {
                 var ok;
-                $.get( "/GSB/public/api/delSpecialitePraticien?id_specialite=" + idSpecialite + '&id_praticien=' + idPraticien, function( data ) {
+                $.get( "/api/delSpecialitePraticien?id_specialite=" + idSpecialite + '&id_praticien=' + idPraticien, function( data ) {
                     ok = data;
                     if (ok) {
                         $('#' + idSpecialite).remove();
@@ -51,7 +51,7 @@
             var texte = $("#specialite option:selected").text();
             var id = $("#specialite option:selected").val();
             var idPraticien = {{$idPraticien}};
-            $.get("/GSB/public/api/addSpecialitePraticien?idPraticien=" + idPraticien + "&idSpecialite=" + id, function (data) {
+            $.get("/api/addSpecialitePraticien?idPraticien=" + idPraticien + "&idSpecialite=" + id, function (data) {
                 if (data)
                 {
                     jQuery("#contenu").append('' +

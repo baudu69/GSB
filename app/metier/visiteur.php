@@ -23,5 +23,7 @@ class visiteur extends Model
         'LOGIN_VISITEUR',
         'PWD_VISITEUR',
         'TYPE_VISITEUR',
+        'token_visiteur',
+        'lastUpdate_visiteur',
     ];
 }

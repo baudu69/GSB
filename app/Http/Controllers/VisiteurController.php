@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DAO\ServiceToken;
 use App\DAO\ServiceVisiteur;
 use Illuminate\Http\Request;
 use App\Exceptions\MonException;
@@ -53,6 +54,7 @@ class VisiteurController extends Controller
      */
     public function jsonApiSignIn(Request $request) {
         try {
+            $reponse = array();
             $json = file_get_contents('php://input');
             $UtilisateursJson = json_decode($json);
             $id = $UtilisateursJson->id;
@@ -62,7 +64,9 @@ class VisiteurController extends Controller
             if ($unUser != null) {
                 if (Hash::check($mdp, $unUser->pwd_visiteur))
                 {
-                    return json_encode('ok');
+                    $reponse['message'] = 'ok';
+                    $reponse['token'] = ServiceToken::generateNewToken($unUser->id_visiteur);
+                    return json_encode($reponse);
                 }
                 else
                 {

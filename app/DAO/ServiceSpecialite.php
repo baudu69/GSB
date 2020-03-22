@@ -16,7 +16,7 @@ class ServiceSpecialite
      */
     public function getAllSpecialites() {
         try {
-            $lesSpecialites = DB::table('SPECIALITE')
+            $lesSpecialites = DB::table('specialite')
                 ->get();
             return $lesSpecialites;
         }
@@ -33,9 +33,9 @@ class ServiceSpecialite
      */
     public function getSpecialiteByIdPraticien($idPraticien) {
         try {
-            $lesSpecialistes = DB::table('POSSEDER')
-                ->join('SPECIALITE', 'POSSEDER.ID_SPECIALITE', '=', 'SPECIALITE.ID_SPECIALITE')
-                ->where('ID_PRATICIEN', '=', $idPraticien)
+            $lesSpecialistes = DB::table('posseder')
+                ->join('specialite', 'posseder.id_specialite', '=', 'specialite.id_specialite')
+                ->where('id_praticien', '=', $idPraticien)
                 ->get();
             return $lesSpecialistes;
         }
@@ -52,9 +52,9 @@ class ServiceSpecialite
      */
     public function delSpecialitePraticien($idSpecialite, $idPraticien) {
         try {
-            DB::table('POSSEDER')
-                ->where('ID_SPECIALITE', '=', $idSpecialite)
-                ->where('ID_PRATICIEN', '=', $idPraticien)
+            DB::table('posseder')
+                ->where('id_specialite', '=', $idSpecialite)
+                ->where('id_praticien', '=', $idPraticien)
                 ->delete();
         }
         catch (QueryException $e) {
@@ -70,8 +70,8 @@ class ServiceSpecialite
      */
     public function getSpecialiteByNonPraticien($listeIdSpecialite) {
         try {
-            $lesSpecialites = DB::table('SPECIALITE')
-                ->whereNotIn('ID_SPECIALITE', $listeIdSpecialite)
+            $lesSpecialites = DB::table('specialite')
+                ->whereNotIn('id_specialite', $listeIdSpecialite)
                 ->get();
             return $lesSpecialites;
         }
@@ -88,9 +88,9 @@ class ServiceSpecialite
      */
     public function addSpecialitePraticien($idPraticien, $idSpecialite) {
         try {
-           DB::table('POSSEDER')
+           DB::table('posseder')
            ->insert([
-               'ID_SPECIALITE' => $idSpecialite, 'ID_PRATICIEN' => $idPraticien
+               'ID_specialite' => $idSpecialite, 'id_praticien' => $idPraticien
            ]);
         }
         catch (QueryException $e) {

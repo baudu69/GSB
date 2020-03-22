@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DAO\ServicePraticien;
+use App\DAO\ServiceToken;
 use App\DAO\ServiceTypes;
 use App\DAO\ServiceVisiteur;
 use Illuminate\Http\Request;
@@ -52,13 +53,17 @@ class PraticienController extends Controller
 
     /**
      * JSONAPI : Renvoie la liste de tous les praticiens
+     * @param Request $request
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
-    public function jsonApiGetAllPraticien() {
+    public function jsonApiGetAllPraticien(Request $request) {
         try {
+            $reponse = array();
             $praticien = new ServicePraticien();
             $lesPraticiens = $praticien->getAllPraticien();
-            return json_encode($lesPraticiens);
+            $reponse['lesPraticiens'] = $lesPraticiens;
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();
@@ -73,10 +78,13 @@ class PraticienController extends Controller
      */
     public function jsonApiGetPraticienByNom(Request $request) {
         try {
+            $reponse = array();
             $nom = $request->input('nomPraticien');
             $praticien = new ServicePraticien();
             $lesPraticiens = $praticien->getPraticienByNom($nom);
-            return json_encode($lesPraticiens);
+            $reponse['lesPraticiens'] = $lesPraticiens;
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();
@@ -92,13 +100,16 @@ class PraticienController extends Controller
      */
     public function jsonApiGetPraticienByNomType(Request $request) {
         try {
+            $reponse = array();
             $nom = $request->input('nomPraticien');
             $type = $request->input('type');
             if ($type == '')
                 return $this->jsonApiGetPraticienByNom($request);
             $praticien = new ServicePraticien();
             $lesPraticiens = $praticien->getPraticienByNomType($nom, $type);
-            return json_encode($lesPraticiens);
+            $reponse['lesPraticiens'] = $lesPraticiens;
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();
@@ -110,11 +121,14 @@ class PraticienController extends Controller
      * JSONAPI : Renvoie la liste de tous les types de praticien
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      */
-    public function jsonApiGetAllTypes() {
+    public function jsonApiGetAllTypes(Request $request) {
         try {
+            $reponse = array();
             $type = new ServiceTypes();
             $lesTypes = $type->getAllTypes();
-            return json_encode($lesTypes);
+            $reponse['lesTypes'] = $lesTypes;
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();

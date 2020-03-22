@@ -18,8 +18,8 @@ class ServiceVisiteur
      */
     public function signIn($identifiant) {
         try {
-            $utilisateur = DB::table('VISITEUR')
-                ->where('LOGIN_VISITEUR', '=', $identifiant)
+            $utilisateur = DB::table('visiteur')
+                ->where('login_visiteur', '=', $identifiant)
                 ->first();
             return $utilisateur;
         }

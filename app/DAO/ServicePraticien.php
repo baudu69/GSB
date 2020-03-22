@@ -17,7 +17,7 @@ class ServicePraticien
      */
     public function getAllPraticien() {
         try {
-            $lesPraticiens = DB::table('PRATICIEN')
+            $lesPraticiens = DB::table('praticien')
                 ->get();
             return $lesPraticiens;
         }
@@ -34,7 +34,7 @@ class ServicePraticien
      */
     public function getPraticienByNom($nom) {
         try {
-            $lesPraticiens = DB::table('PRATICIEN')
+            $lesPraticiens = DB::table('praticien')
                 ->Where('nom_praticien', 'like', '%' . $nom . '%')
                 ->orWhere('prenom_praticien', 'like', '%' . $nom . '%')
                 ->get();
@@ -55,8 +55,8 @@ class ServicePraticien
      */
     public function getPraticienByNomType($nom, $type) {
         try {
-            $lesPraticiens = DB::table('PRATICIEN')
-                ->where('ID_TYPE_PRATICIEN', '=', $type)
+            $lesPraticiens = DB::table('praticien')
+                ->where('id_type_praticien', '=', $type)
                 ->where(function ($query) use ($nom) {
                     $query->where('nom_praticien', 'like', '%' . $nom . '%')
                         ->orWhere('prenom_praticien', 'like', '%' . $nom . '%');
@@ -79,9 +79,9 @@ class ServicePraticien
      */
     public function getPraticienByNomSpecialite($nom, $specialite) {
         try {
-            $lesPraticiens = DB::table('POSSEDER')
-                ->join('PRATICIEN', 'PRATICIEN.ID_PRATICIEN', '=', 'POSSEDER.ID_PRATICIEN')
-                ->where('ID_SPECIALITE', '=', $specialite)
+            $lesPraticiens = DB::table('posseder')
+                ->join('praticien', 'praticien.id_praticien', '=', 'posseder.id_praticien')
+                ->where('id_specialite', '=', $specialite)
                 ->where(function ($query) use ($nom) {
                     $query->where('nom_praticien', 'like', '%' . $nom . '%')
                         ->orWhere('prenom_praticien', 'like', '%' . $nom . '%');

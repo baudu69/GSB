@@ -25,8 +25,19 @@ Route::get('/addSpecialitePraticien', 'SpecialiteController@addSpecialitePratici
 
 Route::prefix('/json')->group(function () {
     Route::post('/signIn', 'VisiteurController@jsonApiSignIn');
-    Route::get('/listePraticien', 'PraticienController@jsonApiGetAllPraticien');
-    Route::get('/listePraticienNom', 'PraticienController@jsonApiGetPraticienByNom');
-    Route::get('/listePraticienNomType', 'PraticienController@jsonApiGetPraticienByNomType');
-    Route::get('/listeTypes', 'PraticienController@jsonApiGetAllTypes');
+    Route::prefix('/praticien')->group(function () {
+        Route::get('/listePraticien', 'PraticienController@jsonApiGetAllPraticien')->middleware('webToken');
+        Route::get('/listePraticienNom', 'PraticienController@jsonApiGetPraticienByNom')->middleware('webToken');
+        Route::get('/listePraticienNomType', 'PraticienController@jsonApiGetPraticienByNomType')->middleware('webToken');
+        Route::get('/listeTypes', 'PraticienController@jsonApiGetAllTypes')->middleware('webToken');
+        Route::get('/listeActivite', 'ActiviteController@jsonApiListeActivite')->middleware('webToken');
+        Route::delete('/supprimerActivite', 'ActiviteController@jsonApiDelActivitePraticien')->middleware('webToken');
+        Route::get('/listeActivitesNonPraticien', 'ActiviteController@jsonApiListeActivitesNonPraticien')->middleware('webToken');
+        Route::get('/ajouterActivitePraticien', 'ActiviteController@jsonApiAjouterActivitePraticien')->middleware('webToken');
+    });
+    Route::prefix('/activite')->group(function () {
+        Route::get('/listerActivite', 'ActiviteController@jsonApiGetAllActivity')->middleware('webToken');
+        Route::post('/ajoutActivite', 'ActiviteController@jsonApiAjoutActivite');
+    });
 });
+

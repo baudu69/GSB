@@ -16,7 +16,7 @@ class ServiceTypes
      */
     public function getAllTypes() {
         try {
-            $lesTypes = DB::table('TYPE_PRATICIEN')
+            $lesTypes = DB::table('type_praticien')
                 ->get();
             return $lesTypes;
         }
