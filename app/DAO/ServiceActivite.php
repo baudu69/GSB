@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceActivite
 {
+    /**
+     * Liste de toutes les activites
+     * @return \Illuminate\Support\Collection
+     * @throws MonException
+     */
     public function getAllActivity() {
         try {
             $lesActivites = DB::table('activite_compl')
@@ -21,6 +26,12 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Recupere une activite par son id
+     * @param $idActivite
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     * @throws MonException
+     */
     public function getActivityByIdActivite($idActivite) {
         try {
             $uneActivite = DB::table('activite_compl')
@@ -33,6 +44,12 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Recupere les activites ou un praticien est invite
+     * @param $idPraticien
+     * @return \Illuminate\Support\Collection
+     * @throws MonException
+     */
     public function getActivityByIdPraticien($idPraticien) {
         try {
             $lesActivites = DB::table('activite_compl')
@@ -46,6 +63,12 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Supprime une invitation
+     * @param $idPraticien
+     * @param $idActivite
+     * @throws MonException
+     */
     public function delInvitation($idPraticien, $idActivite) {
         try {
             DB::table('inviter')
@@ -58,6 +81,12 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Recupere la liste des activites sauf celles de $lesIds
+     * @param $lesIds
+     * @return \Illuminate\Support\Collection
+     * @throws MonException
+     */
     public function getActiviteByNonPraticien($lesIds) {
         try {
             $lesActivites = DB::table('activite_compl')
@@ -70,6 +99,12 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Ajoute une invitation
+     * @param $idPraticien
+     * @param $idActivite
+     * @throws MonException
+     */
     public function participerActivite($idPraticien, $idActivite) {
         try {
             DB::table('inviter')
@@ -82,12 +117,60 @@ class ServiceActivite
         }
     }
 
+    /**
+     * Ajoute une invitation
+     * @param $date
+     * @param $lieu
+     * @param $theme
+     * @param $motif
+     * @throws MonException
+     */
     public function addActivity($date, $lieu, $theme, $motif) {
         try {
             DB::table('activite_compl')
                 ->insert([
                     ['date_activite' => $date, 'lieu_activite' => $lieu, 'theme_activite' => $theme, 'motif_activite' => $motif]
                 ]);
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
+
+    /**
+     * Specialise une invitation
+     * @param $idPraticien
+     * @param $idActivite
+     * @throws MonException
+     */
+    public function specialiser($idPraticien, $idActivite) {
+        try {
+            DB::table('inviter')
+                ->where('id_praticien', '=', $idPraticien)
+                ->where('id_activite_compl', '=', $idActivite)
+                ->update([
+                    'specialiste' => 'O'
+                ]);
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
+
+    /**
+     * despecialise une invitation
+     * @param $idPraticien
+     * @param $idActivite
+     * @throws MonException
+     */
+    public function despecialiser($idPraticien, $idActivite) {
+        try {
+            DB::table('inviter')
+                ->where('id_praticien', '=', $idPraticien)
+                ->where('id_activite_compl', '=', $idActivite)
+                ->update(
+                    ['specialiste' => 'N']
+                );
         }
         catch (QueryException $e) {
             throw new MonException($e->getMessage());

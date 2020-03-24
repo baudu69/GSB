@@ -90,8 +90,51 @@ class ServiceSpecialite
         try {
            DB::table('posseder')
            ->insert([
-               'ID_specialite' => $idSpecialite, 'id_praticien' => $idPraticien
+               'id_specialite' => $idSpecialite, 'id_praticien' => $idPraticien
            ]);
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
+
+    /**
+     * Recupere une activite par son id et par son praticien
+     * @param $idPraticien
+     * @param $idSpecialite
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     * @throws MonException
+     */
+    public function getUneSpecialitePraticien($idPraticien, $idSpecialite) {
+        try {
+            $uneSpecialite = DB::table('posseder')
+                ->join('specialite', 'specialite.id_specialite', '=', 'posseder.id_specialite')
+                ->where('posseder.id_specialite', '=', $idSpecialite)
+                ->where('id_praticien', '=', $idPraticien)
+                ->first();
+            return $uneSpecialite;
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
+
+    /**
+     * Met a jour la specialite d'un praticien
+     * @param $idPraticien
+     * @param $idSpecialite
+     * @param $coef
+     * @param $diplome
+     * @throws MonException
+     */
+    public function updateSpecialitePraticien($idPraticien, $idSpecialite, $coef, $diplome) {
+        try {
+            DB::table('posseder')
+                ->where('id_specialite', '=', $idSpecialite)
+                ->where('id_praticien', '=', $idPraticien)
+                ->update(
+                    ['coef_prescription' => $coef, 'diplome' => $diplome]
+                );
         }
         catch (QueryException $e) {
             throw new MonException($e->getMessage());

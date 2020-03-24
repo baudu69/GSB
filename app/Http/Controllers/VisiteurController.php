@@ -70,12 +70,14 @@ class VisiteurController extends Controller
                 }
                 else
                 {
-                    return json_encode('Mot de passe incorrect');
+                    $reponse['message'] = 'Mot de passe incorrect';
+                    return json_encode($reponse);
                 }
             }
             else
             {
-                return json_encode('Identifiant incorrect');
+                $reponse['message'] = 'Identifiant incorrect';
+                return json_encode($reponse);
             }
         }
         catch (MonException $e) {
@@ -84,6 +86,10 @@ class VisiteurController extends Controller
         }
     }
 
+    /**
+     * Deconnecte un visiteur
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function signOut() {
         Session::forget('id');
         return redirect('/');

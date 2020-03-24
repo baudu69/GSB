@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DAO\ServicePraticien;
 use App\DAO\ServiceSpecialite;
 use App\Exceptions\MonException;
 use Illuminate\Http\Request;
@@ -82,6 +83,43 @@ class SpecialiteController extends Controller
         }
         catch (MonException $e) {
             return false;
+        }
+    }
+
+    /**
+     * Modifier une specialite d'un praticien
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getUneSpecialitePraticien(Request $request) {
+        try {
+            $idPraticien = $request->input('idPraticien');
+            $idSpecialite = $request->input('idSpecialite');
+            $specialite = new ServiceSpecialite();
+            $praticien = new ServicePraticien();
+            $unPraticien = $praticien->getPraticienById($idPraticien);
+            $uneSpecialite = $specialite->getUneSpecialitePraticien($idPraticien, $idSpecialite);
+            return view('vues.modifierSpecialite', compact('uneSpecialite', 'unPraticien'));
+        }
+        catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues.error', compact('erreur'));
+        }
+    }
+
+    public function validUneSpecialitePraticien(Request $request) {
+        try {
+            $diplome = $request->input('diplome');
+            $coef = $request->input('coef');
+            $idPraticien = $request->input('idPraticien');
+            $idSpecialite = $request->input('idSpecialite');
+            $specialite = new ServiceSpecialite();
+            $specialite->updateSpecialitePraticien($idPraticien, $idSpecialite, $coef, $diplome);
+            return redirect('/listerSpecialite?idPraticien=' . $idPraticien);
+        }
+        catch (MonException $e) {
+            $erreur = $e->getMessage();
+            return view('vues.error', compact('erreur'));
         }
     }
 }

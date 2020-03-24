@@ -55,6 +55,7 @@ class PraticienController extends Controller
      * JSONAPI : Renvoie la liste de tous les praticiens
      * @param Request $request
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @throws MonException
      */
     public function jsonApiGetAllPraticien(Request $request) {
         try {
@@ -66,8 +67,11 @@ class PraticienController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
@@ -75,6 +79,7 @@ class PraticienController extends Controller
      * JSONAPI : Renvoie la liste de tous les praticiens dont le nom correspond a $nom
      * @param Request $request
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @throws MonException
      */
     public function jsonApiGetPraticienByNom(Request $request) {
         try {
@@ -87,8 +92,11 @@ class PraticienController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
@@ -97,6 +105,7 @@ class PraticienController extends Controller
      * et dont le type correspond a $type
      * @param Request $request
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @throws MonException
      */
     public function jsonApiGetPraticienByNomType(Request $request) {
         try {
@@ -112,14 +121,18 @@ class PraticienController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
     /**
      * JSONAPI : Renvoie la liste de tous les types de praticien
      * @return false|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @throws MonException
      */
     public function jsonApiGetAllTypes(Request $request) {
         try {
@@ -131,8 +144,11 @@ class PraticienController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 }

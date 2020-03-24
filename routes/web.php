@@ -27,3 +27,6 @@ Route::get('/signOut', 'VisiteurController@signOut');
 Route::get('/lister', 'SpecialiteController@getAllSpecialites')->middleware('connected');
 
 Route::get('/listerSpecialite', 'SpecialiteController@listerSpecialiteByPraticien')->middleware('connected');
+
+Route::get('/modifierSpecialite', 'SpecialiteController@getUneSpecialitePraticien')->middleware('connected');
+Route::post('/modifierSpecialite', 'SpecialiteController@validUneSpecialitePraticien')->middleware('connected');

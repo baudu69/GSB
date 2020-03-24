@@ -1,4 +1,5 @@
 body {
+    background-image: url("/img/technologie-médecine.jpg");
     background-color: #b4b4b4;
     background-repeat: no-repeat;
     background-size: cover;
@@ -8,7 +9,7 @@ body {
 .main {
     margin-top: 30px;
     margin-bottom: 40px;
-    background-color: rgba(156, 182, 187, 0.8);
+    background-color: rgba(180, 180, 180, 0.91);
     border-radius: 20px 20px 20px 20px;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
 }

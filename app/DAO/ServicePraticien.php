@@ -93,4 +93,22 @@ class ServicePraticien
             throw new MonException($e->getMessage());
         }
     }
+
+    /**
+     * Recupere un praticien par son id
+     * @param $idPraticien
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     * @throws MonException
+     */
+    public function getPraticienById($idPraticien) {
+        try {
+            $unPraticien = DB::table('praticien')
+                ->where('id_praticien', '=', $idPraticien)
+                ->first();
+            return $unPraticien;
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
 }

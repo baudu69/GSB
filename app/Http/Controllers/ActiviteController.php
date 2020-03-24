@@ -10,6 +10,12 @@ use phpDocumentor\Reflection\Types\Array_;
 
 class ActiviteController extends Controller
 {
+    /**
+     * JSONAPI : Recupere la liste des activites d'un praticien
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiListeActivite(Request $request) {
         try {
             $reponse = array();
@@ -21,11 +27,20 @@ class ActiviteController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
+    /**
+     * JSONAPI : supprime l'invitation d'un praticien
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiDelActivitePraticien(Request $request) {
         try {
             $reponse = array();
@@ -38,10 +53,20 @@ class ActiviteController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            return json_encode('Erreur');
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
+    /**
+     * JSONAPI : Recupere la liste des activites dont un praticien n'est pas invite
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiListeActivitesNonPraticien(Request $request) {
         try {
             $reponse = array();
@@ -58,11 +83,20 @@ class ActiviteController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
+    /**
+     * JSONAPI : Genere une invitation pour un praticien
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiAjouterActivitePraticien(Request $request) {
         try {
             $reponse = array();
@@ -77,11 +111,20 @@ class ActiviteController extends Controller
 
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
+    /**
+     * JSONAPI : Recupere la liste de toutes les activites
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiGetAllActivity(Request $request) {
         try {
             $reponse = array();
@@ -92,11 +135,20 @@ class ActiviteController extends Controller
             return json_encode($reponse);
         }
         catch (MonException $e) {
-            $erreur = $e->getMessage();
-            return view('vues.error', compact('erreur'));
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
         }
     }
 
+    /**
+     * JSONAPI : Ajoute une activite
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
     public function jsonApiAjoutActivite(Request $request) {
         try {
             $reponse = array();
@@ -110,6 +162,38 @@ class ActiviteController extends Controller
             $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
             return json_encode($reponse);
 
+        }
+        catch (MonException $e) {
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
+        }
+    }
+
+    /**
+     * JSONAPI : Specialise une invitation
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
+    public function jsonApiSpecialiser(Request $request) {
+        try {
+            $reponse = array();
+            $idPraticien = $request->input('idPraticien');
+            $idActivite = $request->input('idActivite');
+            $faire = $request->input('faire');
+            $activite = new ServiceActivite();
+            if ($faire == '0')
+                $activite->specialiser($idPraticien, $idActivite);
+            else
+                $activite->despecialiser($idPraticien, $idActivite);
+            $lesActivites = $activite->getActivityByIdPraticien($idPraticien);
+            $reponse['lesActivites'] = $lesActivites;
+            $reponse['Message'] = 'OK';
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
         }
         catch (MonException $e) {
             $reponse = array();

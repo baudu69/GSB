@@ -17,13 +17,18 @@ class WebToken
      */
     public function handle($request, Closure $next)
     {
-        $reponse = array();
-        $token = $request->input('token');
-        if (ServiceToken::tokenValid($token))
+        $active = true;
+        if ($active) {
+            $reponse = array();
+            $token = $request->input('token');
+            if (ServiceToken::tokenValid($token))
+                return $next($request);
+            else {
+                $reponse['token'] = 'Invalide';
+                return response()->json($reponse);
+            }
+        } else {
             return $next($request);
-        else {
-            $reponse['token'] = 'Invalide';
-            return response()->json($reponse);
         }
     }
 }

@@ -34,6 +34,7 @@ Route::prefix('/json')->group(function () {
         Route::delete('/supprimerActivite', 'ActiviteController@jsonApiDelActivitePraticien')->middleware('webToken');
         Route::get('/listeActivitesNonPraticien', 'ActiviteController@jsonApiListeActivitesNonPraticien')->middleware('webToken');
         Route::get('/ajouterActivitePraticien', 'ActiviteController@jsonApiAjouterActivitePraticien')->middleware('webToken');
+        Route::post('/specialiser', 'ActiviteController@jsonApiSpecialiser');
     });
     Route::prefix('/activite')->group(function () {
         Route::get('/listerActivite', 'ActiviteController@jsonApiGetAllActivity')->middleware('webToken');
