@@ -48,8 +48,7 @@ class SpecialiteController extends Controller
             return view('vues.error', compact('erreur'));
         }
     }
-
-    //TODO: Faire les verifications
+    
     /**
      * Supprime la specialite d'un praticien
      * @param Request $request
@@ -107,6 +106,11 @@ class SpecialiteController extends Controller
         }
     }
 
+    /**
+     * Valide les modifications de specialite
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function validUneSpecialitePraticien(Request $request) {
         try {
             $diplome = $request->input('diplome');

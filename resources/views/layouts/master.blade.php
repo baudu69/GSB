@@ -18,9 +18,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/lister')}}">Lister</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{url('#')}}">Ajouter</a>
-                </li>
             @endif
         </ul>
 
