@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="coef">Coefficient Prescription : </label>
-                <input type="text" id="coef" name="coef" class="form-control" required value="{{$uneSpecialite->coef_prescription}}"/>
+                <input type="number" step="0.01" id="coef" name="coef" class="form-control" required value="{{$uneSpecialite->coef_prescription}}"/>
             </div>
             <div class="form-group">
                 <button class="state" type="submit"><i class="fas fa-check-circle"></i> Valider</button>
