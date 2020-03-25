@@ -7,10 +7,10 @@
             <input type="hidden" name="idPraticien" value="{{$unPraticien->id_praticien}}">
             <input type="hidden" name="idSpecialite" value="{{$uneSpecialite->id_specialite}}">
             <h3>
-                <b>Modifier la specialite :</b> <br>{{$uneSpecialite->lib_specialite}} <br><b>du praticien : </b><br>{{$unPraticien->nom_praticien}} {{$unPraticien->prenom_praticien}}
+                <b>Modifier la spécialité :</b> <br>{{$uneSpecialite->lib_specialite}} <br><b>du praticien : </b><br>{{$unPraticien->nom_praticien}} {{$unPraticien->prenom_praticien}}
             </h3>
             <div class="form-group">
-                <label for="diplome">Diplome : </label>
+                <label for="diplome">Diplôme : </label>
                 <input type="text" id="diplome" name="diplome" class="form-control" value="{{$uneSpecialite->diplome}}" required/>
             </div>
             <div class="form-group">

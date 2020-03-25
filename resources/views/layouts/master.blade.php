@@ -28,7 +28,7 @@
             </li>
             @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('signOut')}}">Deconnexion</a>
+                    <a class="nav-link" href="{{url('signOut')}}">Déconnexion</a>
                 </li>
             @endif
         </ul>
@@ -39,7 +39,7 @@
 </div>
 <footer class="footer">
     <div class="copyright">© 2020 Copyright:
-        <a href="{{url('/')}}"> GSB</a>
+        <a href="{{url('/')}}">GSB</a>
     </div>
 </footer>
 </body>

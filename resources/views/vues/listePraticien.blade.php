@@ -9,7 +9,7 @@
                 <input type="text" name="nom" id="nom" />
             </div>
             <div class="form-group">
-                <label for="specialite">Filtrer par specialite : </label>
+                <label for="specialite">Filtrer par spécialité : </label>
                 <select name="specialite" id="specialite">
                     <option value="" selected>---</option>
                     @foreach($lesSpecialites as $uneSpecialite)
@@ -29,7 +29,7 @@
                 <th scope="col">Prenom</th>
                 <th scope="col">Adresse</th>
                 <th scope="col">Ville</th>
-                <th scope="col">Coef Notoriete</th>
+                <th scope="col">Coef Notoriété</th>
                 <th scope="col"></th>
                 </thead>
                 <tbody id="contenu">

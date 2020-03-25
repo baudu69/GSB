@@ -2,9 +2,9 @@
 
 @section('contenu')
     <div class="container">
-        <h1>Les specialites de :</h1>
+        <h1>Les spécialités de :</h1>
         <div class="main">
-            <label for="specialite">Ajouter une specialite</label>
+            <label for="specialite">Ajouter une spécialité</label>
             <select name="specialite" id="specialite">
                 <option value="" selected>---</option>
                 @foreach($lesSpecialitesAAjouter as $uneSpecialite)
@@ -16,7 +16,7 @@
                 <thead class="thead-1">
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
-                <th>Diplome</th>
+                <th>Diplôme</th>
                 <th>Coefficient Prescription</th>
                 <th></th>
                 <th></th>
@@ -29,7 +29,7 @@
                         <td>{{$uneSpecialite->diplome}}</td>
                         <td>{{$uneSpecialite->coef_prescription}}</td>
                         <td><a href="{{url('/modifierSpecialite?idPraticien=' . $idPraticien . '&idSpecialite=' . $uneSpecialite->id_specialite)}}"><button type="button" class="btn-2">Modifier les options</button></a></td>
-                        <td><button type="button" class="btn-3" onclick="delLigne({{$uneSpecialite->id_specialite}}, {{$idPraticien}}, '{{$uneSpecialite->lib_specialite}}')">Supprimer la specialite</button> </td>
+                        <td><button type="button" class="btn-3" onclick="delLigne({{$uneSpecialite->id_specialite}}, {{$idPraticien}}, '{{$uneSpecialite->lib_specialite}}')">Supprimer la spécialité</button> </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -40,7 +40,7 @@
 @section('script')
     <script>
         function delLigne(idSpecialite, idPraticien, libSpecialite) {
-            if (confirm('Voulez-vous vraiment supprimer cette specialite ?')) {
+            if (confirm('Voulez-vous vraiment supprimer cette specialité ?')) {
                 var ok;
                 $.get( "/api/delSpecialitePraticien?id_specialite=" + idSpecialite + '&id_praticien=' + idPraticien, function( data ) {
                     ok = data;
@@ -68,7 +68,7 @@
                         '<td>' + '</td>' +
                         '<td>' + '</td>' +
                         '<td>' + '<a href="' + urlModifier + '"><button type="button" class="btn-2">Modifier les options</button></a></td>' +
-                        '<td><button type="button" class="btn-3" onclick="delLigne(' + id + ', ' + idPraticien + ', \'' + texte + '\')">Supprimer la specialite</button> </td>' +
+                        '<td><button type="button" class="btn-3" onclick="delLigne(' + id + ', ' + idPraticien + ', \'' + texte + '\')">Supprimer la spécialité</button> </td>' +
                         '</tr>');
                     $("#option_" + id).remove();
                 }
