@@ -35,20 +35,22 @@ class SpecialiteController extends Controller
         try {
             $idPraticien = $request->input('idPraticien');
             $specialite = new ServiceSpecialite();
+            $praticien = new ServicePraticien();
+            $unPraticien = $praticien->getPraticienById($idPraticien);
             $lesSpecialites = $specialite->getSpecialiteByIdPraticien($idPraticien);
             $lesIdSpecialites = array();
             foreach ($lesSpecialites as $uneSpecialite) {
                 $lesIdSpecialites[] = $uneSpecialite->id_specialite;
             }
             $lesSpecialitesAAjouter = $specialite->getSpecialiteByNonPraticien($lesIdSpecialites);
-            return view('vues.listerSpecialiter', compact('lesSpecialites', 'idPraticien', 'lesSpecialitesAAjouter'));
+            return view('vues.listerSpecialiter', compact('lesSpecialites', 'idPraticien', 'lesSpecialitesAAjouter', 'unPraticien'));
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();
             return view('vues.error', compact('erreur'));
         }
     }
-    
+
     /**
      * Supprime la specialite d'un praticien
      * @param Request $request

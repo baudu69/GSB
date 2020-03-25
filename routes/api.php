@@ -27,8 +27,8 @@ Route::prefix('/json')->group(function () {
     Route::post('/signIn', 'VisiteurController@jsonApiSignIn');
     Route::prefix('/praticien')->group(function () {
         Route::get('/listePraticien', 'PraticienController@jsonApiGetAllPraticien')->middleware('webToken');
-        Route::get('/listePraticienNom', 'PraticienController@jsonApiGetPraticienByNom')->middleware('webToken');
-        Route::get('/listePraticienNomType', 'PraticienController@jsonApiGetPraticienByNomType')->middleware('webToken');
+        Route::get('/listePraticienNom', 'PraticienController@jsonApiGetPraticienByNom');
+        Route::get('/listePraticienNomType', 'PraticienController@jsonApiGetPraticienByNomType');
         Route::get('/listeTypes', 'PraticienController@jsonApiGetAllTypes')->middleware('webToken');
         Route::get('/listeActivite', 'ActiviteController@jsonApiListeActivite')->middleware('webToken');
         Route::delete('/supprimerActivite', 'ActiviteController@jsonApiDelActivitePraticien')->middleware('webToken');

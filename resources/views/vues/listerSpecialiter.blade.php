@@ -2,7 +2,7 @@
 
 @section('contenu')
     <div class="container">
-        <h1>Les spécialités de :</h1>
+        <h1>Les spécialités de {{$unPraticien->nom_praticien}} {{$unPraticien->prenom_praticien}}:</h1>
         <div class="main">
             <label for="specialite">Ajouter une spécialité</label>
             <select name="specialite" id="specialite">
