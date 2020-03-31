@@ -112,8 +112,10 @@ class PraticienController extends Controller
             $reponse = array();
             $nom = $request->input('nomPraticien');
             $type = $request->input('type');
-            if ($type == '')
+            if (($type == '' or $type == '0') || ($type == '0'))
                 return $this->jsonApiGetPraticienByNom($request);
+            if ($nom == null)
+                $nom = "";
             $praticien = new ServicePraticien();
             $lesPraticiens = $praticien->getPraticienByNomType($nom, $type);
             $reponse['lesPraticiens'] = $lesPraticiens;

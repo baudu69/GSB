@@ -55,10 +55,8 @@ class VisiteurController extends Controller
     public function jsonApiSignIn(Request $request) {
         try {
             $reponse = array();
-            $json = file_get_contents('php://input');
-            $UtilisateursJson = json_decode($json);
-            $id = $UtilisateursJson->id;
-            $mdp = $UtilisateursJson->mdp;
+            $id = $request->input('id');
+            $mdp = $request->input('mdp');
             $user = new ServiceVisiteur();
             $unUser = $user->signIn($id);
             if ($unUser != null) {

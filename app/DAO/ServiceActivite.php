@@ -176,4 +176,25 @@ class ServiceActivite
             throw new MonException($e->getMessage());
         }
     }
+
+    /**
+     * Renvoie les details d'un activite d'un praticien
+     * @param $idPraticien
+     * @param $idActivite
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     * @throws MonException
+     */
+    public function getActivityByIdPraticienIdActivity($idPraticien, $idActivite) {
+        try {
+            $uneActivite = DB::table('activite_compl')
+                ->join('inviter', 'activite_compl.id_activite_compl', '=', 'inviter.id_activite_compl')
+                ->where('id_praticien', '=', $idPraticien)
+                ->where('inviter.id_activite_compl', '=', $idActivite)
+                ->first();
+            return $uneActivite;
+        }
+        catch (QueryException $e) {
+            throw new MonException($e->getMessage());
+        }
+    }
 }

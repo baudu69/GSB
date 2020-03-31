@@ -48,7 +48,7 @@ class ActiviteController extends Controller
             $idActivite = $request->input('idActivite');
             $activite = new ServiceActivite();
             $activite->delInvitation($idPraticien, $idActivite);
-            $reponse['message'] = 'ok';
+            $reponse['Message'] = 'ok';
             $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
             return json_encode($reponse);
         }
@@ -191,6 +191,33 @@ class ActiviteController extends Controller
                 $activite->despecialiser($idPraticien, $idActivite);
             $lesActivites = $activite->getActivityByIdPraticien($idPraticien);
             $reponse['lesActivites'] = $lesActivites;
+            $reponse['Message'] = 'OK';
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            return json_encode($reponse);
+        }
+        catch (MonException $e) {
+            $reponse = array();
+            $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
+            $reponse['Message'] = 'Erreur';
+            $reponse['Erreur'] = $e->getMessage();
+            return json_encode($reponse);
+        }
+    }
+
+    /**
+     * JSONAPI : Renvoie les details d'une activite
+     * @param Request $request
+     * @return false|string
+     * @throws MonException
+     */
+    public function jsonApiGetUneActivite(Request $request) {
+        try {
+            $reponse = array();
+            $idPraticien = $request->input('idPraticien');
+            $idActivite = $request->input('idActivite');
+            $activite = new ServiceActivite();
+            $uneActivite = $activite->getActivityByIdPraticienIdActivity($idPraticien, $idActivite);
+            $reponse['uneActivite'] = $uneActivite;
             $reponse['Message'] = 'OK';
             $reponse['token'] = ServiceToken::generateNewTokenByToken($request->input('token'));
             return json_encode($reponse);
