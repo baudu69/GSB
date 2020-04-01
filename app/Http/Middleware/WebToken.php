@@ -17,7 +17,7 @@ class WebToken
      */
     public function handle($request, Closure $next)
     {
-        $active = true;
+        $active = false;
         if ($active) {
             $reponse = array();
             $token = $request->input('token');

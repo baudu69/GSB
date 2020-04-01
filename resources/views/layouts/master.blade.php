@@ -10,7 +10,7 @@
     @yield('head')
 </head>
 <body>
-<nav class="navbar navbar-expand-sm">
+{{--<nav class="navbar navbar-expand-sm">
     <div class="container-fluid">
         <ul class="navbar-nav navbar-left">
             <a class="navbar-brand" href="{{url('/')}}">GSB</a>
@@ -33,6 +33,14 @@
             @endif
         </ul>
     </div>
+</nav>--}}
+<nav class="nav">
+    <a href="#" class="nav-item is-active" active-color="orange">Home</a>
+    <a href="#" class="nav-item" active-color="green">About</a>
+    <a href="#" class="nav-item" active-color="blue">Testimonials</a>
+    <a href="#" class="nav-item" active-color="red">Blog</a>
+    <a href="#" class="nav-item" active-color="rebeccapurple">Contact</a>
+    <span class="nav-indicator"></span>
 </nav>
 <div id="body">
     @yield('contenu')

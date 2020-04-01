@@ -6,7 +6,7 @@ namespace App\metier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class praticien extends Model
+class praticien extends Model implements \JsonSerializable
 {
     protected $table = 'PRATICIEN';
     public $timestamps = false;
