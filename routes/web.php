@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('vues.accueil');
-});
+Route::get('/', 'VisiteurController@getAccueil');
 
 Route::get('/signIn', function () {
     return view('vues.connexion');

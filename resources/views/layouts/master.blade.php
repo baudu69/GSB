@@ -5,12 +5,13 @@
     <title>GSB</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
     @yield('head')
 </head>
 <body>
-{{--<nav class="navbar navbar-expand-sm">
+<nav class="navbar navbar-expand-sm">
     <div class="container-fluid">
         <ul class="navbar-nav navbar-left">
             <a class="navbar-brand" href="{{url('/')}}">GSB</a>
@@ -33,14 +34,6 @@
             @endif
         </ul>
     </div>
-</nav>--}}
-<nav class="nav">
-    <a href="#" class="nav-item is-active" active-color="orange">Home</a>
-    <a href="#" class="nav-item" active-color="green">About</a>
-    <a href="#" class="nav-item" active-color="blue">Testimonials</a>
-    <a href="#" class="nav-item" active-color="red">Blog</a>
-    <a href="#" class="nav-item" active-color="rebeccapurple">Contact</a>
-    <span class="nav-indicator"></span>
 </nav>
 <div id="body">
     @yield('contenu')

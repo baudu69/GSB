@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DAO\ServicePraticien;
 use App\DAO\ServiceToken;
 use App\DAO\ServiceVisiteur;
 use Illuminate\Http\Request;
@@ -12,6 +13,17 @@ use Illuminate\Support\Facades\Session;
 
 class VisiteurController extends Controller
 {
+    public function getAccueil() {
+        try {
+            $visiteur = new ServicePraticien();
+            $lesVisiteurs =  $visiteur->getAllPraticien();
+        } catch (MonException $e) {
+            $lesVisiteurs = null;
+        } finally {
+            return view('vues.accueil', compact('lesVisiteurs'));
+        }
+    }
+
     /**
      * Permet d'authentifier un utilisateur
      * @param Request $request

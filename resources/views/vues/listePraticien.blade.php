@@ -4,9 +4,9 @@
     <div class="container">
         <h1>Recherche d'un praticien</h1>
         <div class="main">
-            <div class="form-group">
+            <div class="">
                 <label for="nom">Filtrer par nom : </label>
-                <input type="text" name="nom" id="nom" />
+                <input type="text" name="nom" id="nom" class="input_recherche"/>
             </div>
             <div class="form-group">
                 <label for="specialite">Filtrer par spécialité : </label>
