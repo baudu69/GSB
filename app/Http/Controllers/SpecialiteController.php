@@ -43,7 +43,7 @@ class SpecialiteController extends Controller
                 $lesIdSpecialites[] = $uneSpecialite->id_specialite;
             }
             $lesSpecialitesAAjouter = $specialite->getSpecialiteByNonPraticien($lesIdSpecialites);
-            return view('vues.listerSpecialiter', compact('lesSpecialites', 'idPraticien', 'lesSpecialitesAAjouter', 'unPraticien'));
+            return view('vues.listerSpecialiter', compact('lesSpecialites', 'idPraticien', 'lesSpecialitesAAjouter', 'unPraticien                                 '));
         }
         catch (MonException $e) {
             $erreur = $e->getMessage();
